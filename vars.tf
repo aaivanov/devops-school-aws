@@ -12,6 +12,7 @@ variable "settings" {
     tag_prefix = string
     ami = string
     instance_type = string
+    instance_min_count = string
     vpc =  object({
       cidr_block = string
     })

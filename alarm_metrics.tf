@@ -16,25 +16,25 @@ resource "aws_autoscaling_policy" "min_count_supprt_1" {
 }
 
 
-resource "aws_cloudwatch_metric_alarm" "nlb_healthyhosts" {
-  alarm_name          = "${var.settings.tag_prefix}_alarm_elb"
-  comparison_operator = "LessThanThreshold"
-  evaluation_periods  = 2
-  metric_name         = "HealthyHostCount"
-  namespace           = "AWS/ELB"
-  period              = 60
-  statistic           = "Average"
-  threshold           = 2
-  actions_enabled     = "true"
-  dimensions = {
+#resource "aws_cloudwatch_metric_alarm" "nlb_healthyhosts" {
+#  alarm_name          = "${var.settings.tag_prefix}_alarm_elb"
+#  comparison_operator = "LessThanThreshold"
+#  evaluation_periods  = 2
+#  metric_name         = "HealthyHostCount"
+#  namespace           = "AWS/ELB"
+#  period              = 60
+#  statistic           = "Average"
+#  threshold           = 2
+#  actions_enabled     = "true"
+#  dimensions = {
 #    AvailabilityZone  = aws_elb.prod_lb.availability_zones
-    LoadBalancerName = aws_elb.prod_lb.name
-  }
-
-  alarm_description   = "Number of healthy nodes"
-  alarm_actions       = [aws_autoscaling_policy.min_count_supprt.arn]
-
-}
+#    LoadBalancerName = aws_elb.prod_lb.name
+#  }
+#
+#  alarm_description   = "Number of healthy nodes"
+#  alarm_actions       = [aws_autoscaling_policy.min_count_supprt.arn]
+#
+#}
 
 
 resource "aws_cloudwatch_metric_alarm" "bat" {
