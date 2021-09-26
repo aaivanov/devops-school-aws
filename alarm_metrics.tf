@@ -15,6 +15,14 @@ resource "aws_autoscaling_policy" "min_count_supprt_1" {
   autoscaling_group_name = aws_autoscaling_group.autoscaling_grp.name
 }
 
+resource "aws_autoscaling_policy" "min_count_supprt_2" {
+  name                   = "${var.settings.tag_prefix}_min_count_supprt_2"
+  scaling_adjustment     = 2
+  adjustment_type        = "ExactCapacity"
+  cooldown               = 120
+  autoscaling_group_name = aws_autoscaling_group.autoscaling_grp.name
+}
+
 
 resource "aws_cloudwatch_metric_alarm" "nlb_healthyhosts" {
   alarm_name          = "${var.settings.tag_prefix}_alarm_elb"
@@ -27,12 +35,11 @@ resource "aws_cloudwatch_metric_alarm" "nlb_healthyhosts" {
   threshold           = 2
   actions_enabled     = "true"
   dimensions = {
-#    AvailabilityZone  = aws_elb.prod_lb.availability_zones
     LoadBalancerName = aws_elb.prod_lb.name
   }
 
   alarm_description   = "Number of healthy nodes"
-  alarm_actions       = [aws_autoscaling_policy.min_count_supprt.arn]
+  alarm_actions       = [aws_autoscaling_policy.min_count_supprt_2.arn]
 
 }
 
@@ -40,7 +47,7 @@ resource "aws_cloudwatch_metric_alarm" "nlb_healthyhosts" {
 resource "aws_cloudwatch_metric_alarm" "bat" {
   alarm_name          = "${var.settings.tag_prefix}_cpu_l20"
   comparison_operator = "LessThanThreshold"
-  evaluation_periods  = "2"
+  evaluation_periods  = "10"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/EC2"
   period              = "60"
@@ -58,7 +65,7 @@ resource "aws_cloudwatch_metric_alarm" "bat" {
 resource "aws_cloudwatch_metric_alarm" "bat1" {
   alarm_name          = "${var.settings.tag_prefix}_cpu_o60"
   comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = "2"
+  evaluation_periods  = "10"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/EC2"
   period              = "60"

@@ -18,11 +18,11 @@ resource "aws_elb" "prod_lb" {
 
 
   health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 3
-    target              = "HTTP:80/"
-    interval            = 10
+    healthy_threshold   = 3
+    unhealthy_threshold = 10
+    timeout             = 10
+    target              = "HTTP:80/wp-admin/install.php"
+    interval            = 30
   }
 
   #instances                   = [aws_instance.instance_b.id, aws_instance.instance_a.id]

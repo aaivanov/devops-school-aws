@@ -2,7 +2,8 @@ settings = {
   "region" = "eu-central-1"
   "tag_prefix" = "Prod"
   "instance_type" = "t2.micro"
-  "ami" = "ami-05f7491af5eef733a"           
+  "ami" = "ami-05f7491af5eef733a"
+  "instance_min_count" = "2"
   "vpc" = {
     "cidr_block" = "137.23.0.0/16"
   }

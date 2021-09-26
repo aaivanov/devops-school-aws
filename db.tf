@@ -1,10 +1,10 @@
 resource "aws_db_instance" "default" {
   engine               = "mysql"
   engine_version       = "5.7"
-  instance_class       = "db.t3.micro"
+  instance_class       = "db.t2.micro"
   name                 = "mydb"
-  username             = "foo"
-  password             = "foobarbaz"
+  username             = "admin"
+  password             = random_password.password.result
   parameter_group_name = "default.mysql5.7"
   skip_final_snapshot  = true
   db_subnet_group_name = aws_db_subnet_group.prod_db.name
