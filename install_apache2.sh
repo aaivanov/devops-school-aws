@@ -16,7 +16,7 @@ sudo chmod +x /usr/bin/docker-compose
 export MOUNT_POINT="/export"
 export WP_MOUNT_POINT="${MOUNT_POINT}/wordpress/"
 export APP_HOME_DIR="/home/ubuntu/wp"
-export SECRET_ID="credentials6"
+export SECRET_ID="credentials10"
 export AWS_REGION="eu-central-1"
 export EFS_DNS_NAME=$(aws secretsmanager get-secret-value --secret-id ${SECRET_ID} --region=${AWS_REGION} | jq -rs ".[].SecretString" | jq  -r ".efsdnsname")
 
@@ -35,7 +35,7 @@ echo WORDPRESS_DB_PASSWORD=\$(aws secretsmanager get-secret-value --secret-id ${
 echo WORDPRESS_DB_HOST=\$(aws secretsmanager get-secret-value --secret-id ${SECRET_ID} --region=${AWS_REGION} | jq -rs ".[].SecretString" | jq  -r ".host") >> ${APP_HOME_DIR}/.env
 echo WORDPRESS_DB_NAME=\$(aws secretsmanager get-secret-value --secret-id ${SECRET_ID} --region=${AWS_REGION} | jq -rs ".[].SecretString" | jq  -r ".dbname") >> ${APP_HOME_DIR}/.env
 
-/usr/bin/docker-compose -f ${APP_HOME_DIR}/docker-compose.yml up -d --remove-orphan
+/usr/bin/docker-compose -f ${APP_HOME_DIR}/docker-compose.yml up -d
 EOF
 
 cat <<EOF > ${APP_HOME_DIR}/docker-compose.yml

@@ -1,7 +1,7 @@
 provider "aws" {
   region = var.settings.region
-  access_key = var.access_keys.access_key_id
-  secret_key = var.access_keys.Secret_access_key
+  shared_credentials_file = "$HOME/.aws/credentials"
+  profile                 = "aws_homework"
 }
 
 resource "aws_launch_template" "prod_launch_temp" {
